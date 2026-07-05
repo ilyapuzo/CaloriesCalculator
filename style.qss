@@ -1,0 +1,87 @@
+QMainWindow{background-color:#f6f0ff;}
+
+QLabel{color: #663abb;
+font-weight: 600}
+
+QLineEdit, QSpinBox, QDoubleSpinBox{background: #ffffff;
+border: 2px solid #b0a3d2;
+border-radius: 10px;
+padding: 7px;
+font-size: 10pt;
+color: #2c003e;}
+
+QPushButton#btnAdd,
+QPushButton#btnLoadPhoto{background: #937ccb;
+color: white;
+border: 2px solid #5a189a;
+border-radius: 10px;
+padding: 9px;
+font-size: 11pt;
+font-weight: bold;}
+QPushButton#btnEdit {background: #4CAF50;
+color: white;
+border: 2px solid #46973f;
+border-radius: 10px;
+padding: 9px;
+font-size: 11pt;
+font-weight: bold;}
+QPushButton#btnDelete {background: #c2666d;
+color: white;
+border: 2px solid #b62b35;
+border-radius: 10px;
+padding: 9px;
+font-size: 11pt;
+font-weight: bold;}
+QPushButton#btnAdd:hover{background: #4b0082}
+QPushButton#btnEdit:hover{background: #29702a}
+QPushButton#btnDelete:hover{background: #E53935}
+QPushButton#btnLoadPhoto:hover{background: #4b0082}
+
+QTableWidget::item {padding: 6px}
+QTableWidget::item:selected {background-color: #6031c4; color: black;}
+QHeaderView::section {background-color: #a38dd3;
+color: black;
+padding: 8px;
+font-weight: bold;
+font-size: 10pt;
+border-top: none;
+border-left: none;
+border-right: 1px solid white;}
+
+QLabel#labelPhoto {background: #e3d9f2;
+border: 2px dashed #b0a3d2;
+border-radius: 12px;
+color: #663abb}
+
+QScrollBar:vertical {background: transparent; width: 10px;}
+QScrollBar::handle:vertical {background: #b0bec5; border-radius: 5px;}
+QScrollBar::handle:vertical:hover {background: #90a4ae;}
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {height: 0px;}
+QScrollBar:horizontal {background: transparent; height: 10px;}
+QScrollBar::handle:horizontal {background: #b0bec5; border-radius: 5px;}
+QScrollBar::add-line:horizontal,
+QScrollBar::sub-line:horizontal {width: 0px;}
+
+QSpinBox::up-button,
+QSpinBox::down-button,
+QDoubleSpinBox::up-button,
+QDoubleSpinBox::down-button {width: 0px; border: none}
+
+QWidget#widget,
+QWidget#widget_2,
+QWidget#widget_3,
+QWidget#widget_4,
+QWidget#widget_5,
+QWidget#widget_6 {background-color: #e3d9f2;
+border: 2px solid #b0a3d2;
+border-radius: 12px;
+padding: 10px}
+
+QWidget#widgetIngredients,
+QWidget#widgetPhoto,
+QWidget#widgetTable {
+background-color: white;
+border: 1px solid #e0cfff;
+border-radius: 14px;
+}
