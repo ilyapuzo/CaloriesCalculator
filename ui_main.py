@@ -1,9 +1,9 @@
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QHeaderView, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QHeaderView, QFileDialog, QAction
 from PyQt5.uic import loadUi
 from database import Database
 from PyQt5.QtGui import QPixmap, QIcon
-from PyQt5.QtCore import Qt,QSettings
+from PyQt5.QtCore import Qt, QSettings
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -12,21 +12,27 @@ class MainWindow(QMainWindow):
         with open("style.qss", "r", encoding="utf-8") as file:
             self.setStyleSheet(file.read())
 
+        self.settings = QSettings("RecipeApp", "Calculator")
+        theme = self.settings.value("theme", "light")
+        self.apply_theme(theme)
+
         self.setup_table()
         self.connect_signals()
-
         self.total_weight = 0
         self.total_calories = 0
-
         self.db = Database()
         self.current_id = None
         self.load_ingredients()
 
-        self.settings = QSettings("RecipeApp", "Calculator")
         people = self.settings.value("people", 1, type=int)
         self.spinPeople.setValue(people)
-
         self.setup_icons()
+
+        shortcut = QAction(self)
+        shortcut.setShortcut("Ctrl+T")
+        shortcut.triggered.connect(self.toggle_theme)
+        self.addAction(shortcut)
+
 
     def setup_table(self):
         self.tableIngredients.setColumnCount(5)
@@ -175,3 +181,18 @@ class MainWindow(QMainWindow):
         self.btnEdit.setIcon(QIcon("images/icons8-редактировать-24.png"))
         self.btnDelete.setIcon(QIcon("images/icons8-мусорка-48.png"))
         self.labelPhoto.setPixmap(QPixmap("images/icons8-нет-изображения-96.png"))
+
+    def apply_theme(self, theme):
+        self.settings.setValue("theme", theme)
+        style_file = "style_dark.qss" if theme == "dark" else "style.qss"
+        try:
+            with open(style_file, "r", encoding="utf-8") as file:
+                self.setStyleSheet(file.read())
+        except FileNotFoundError:
+            print("Ошибка")
+            self.setStyleSheet("")
+
+    def toggle_theme(self):
+        current_theme = self.settings.value("theme", "light")
+        new_theme = "dark" if current_theme == "light" else "light"
+        self.apply_theme(new_theme)
