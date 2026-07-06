@@ -197,6 +197,8 @@ class MainWindow(QMainWindow):
         self.btnEdit.setIcon(QIcon("images/icons8-редактировать-24.png"))
         self.btnDelete.setIcon(QIcon("images/icons8-мусорка-48.png"))
         self.labelPhoto.setPixmap(QPixmap("images/icons8-нет-изображения-96.png"))
+        self.btnImport.setIcon(QIcon("images/icons8-сохранить-48.png"))
+        self.btnExport.setIcon(QIcon("images/icons8-загрузить-48.png"))
 
     def apply_theme(self, theme):
         self.settings.setValue("theme", theme)
