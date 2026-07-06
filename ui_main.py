@@ -192,7 +192,7 @@ class MainWindow(QMainWindow):
         self.settings.setValue("people", self.spinPeople.value())
 
     def setup_icons(self):
-        self.btnAdd.setIcon(QIcon("images/icons8-добавить-32.png")))
+        self.btnAdd.setIcon(QIcon("images/icons8-добавить-32.png"))
         self.btnLoadPhoto.setIcon(QIcon("images/icons8-фото-24.png"))
         self.btnEdit.setIcon(QIcon("images/icons8-редактировать-24.png"))
         self.btnDelete.setIcon(QIcon("images/icons8-мусорка-48.png"))
