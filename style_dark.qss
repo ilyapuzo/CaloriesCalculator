@@ -10,7 +10,9 @@ font-size: 10pt;
 color: #f0e6ff;}
 
 QPushButton#btnAdd,
-QPushButton#btnLoadPhoto {background: #937ccb;
+QPushButton#btnLoadPhoto,
+QPushButton#btnImport,
+QPushButton#btnExport{background: #937ccb;
 color: white;
 border: 2px solid #5a189a;
 border-radius: 10px;
@@ -35,6 +37,8 @@ font-size: 11pt;
 font-weight: bold;}
 
 QPushButton#btnAdd:hover {background: #b09ae0;}
+QPushButton#btnImport:hover {background: #b09ae0;}
+QPushButton#btnExport:hover {background: #b09ae0;}
 QPushButton#btnEdit:hover {background: #29702a}
 QPushButton#btnDelete:hover {background: #E53935}
 QPushButton#btnLoadPhoto:hover {background: #b09ae0}
