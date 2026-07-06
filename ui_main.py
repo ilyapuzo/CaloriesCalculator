@@ -1,8 +1,8 @@
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QHeaderView, QFileDialog, QAction
+from PyQt5.QtWidgets import QMainWindow, QHeaderView, QFileDialog, QShortcut
 from PyQt5.uic import loadUi
 from database import Database
-from PyQt5.QtGui import QPixmap, QIcon
+from PyQt5.QtGui import QPixmap, QIcon, QKeySequence
 from PyQt5.QtCore import Qt, QSettings
 
 class MainWindow(QMainWindow):
@@ -27,12 +27,10 @@ class MainWindow(QMainWindow):
         people = self.settings.value("people", 1, type=int)
         self.spinPeople.setValue(people)
         self.setup_icons()
+        self.setup_shortcuts()
 
-        shortcut = QAction(self)
-        shortcut.setShortcut("Ctrl+T")
-        shortcut.triggered.connect(self.toggle_theme)
-        self.addAction(shortcut)
-
+    def setup_shortcuts(self):
+        QShortcut(QKeySequence("Ctrl+T"), self).activated.connect(self.toggle_theme)
 
     def setup_table(self):
         self.tableIngredients.setColumnCount(5)
