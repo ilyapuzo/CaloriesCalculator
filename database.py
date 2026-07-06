@@ -77,8 +77,7 @@ class Database:
             count = 0
             for item in data:
                 try:
-                    self.add_ingredient(item['name'],item['weight'],item['calories100'],item['total']
-                    )
+                    self.add_ingredient(item['name'],item['weight'],item['calories100'],item['total'])
                     count += 1
                 except (KeyError, TypeError) as e:
                     print(f"Ошибка в записи {item}: {e}")
