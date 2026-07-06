@@ -14,9 +14,13 @@ class MainWindow(QMainWindow):
         with open("style.qss", "r", encoding="utf-8") as file:
             self.setStyleSheet(file.read())
 
+        if not os.path.exists("recipes.db"):
+            QSettings("RecipeApp", "Calculator").clear()
+
         self.settings = QSettings("RecipeApp", "Calculator")
         theme = self.settings.value("theme", "light")
         self.apply_theme(theme)
+
 
         self.setup_table()
         self.connect_signals()
