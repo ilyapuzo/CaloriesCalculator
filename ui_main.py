@@ -38,6 +38,8 @@ class MainWindow(QMainWindow):
 
     def setup_shortcuts(self):
         QShortcut(QKeySequence("Ctrl+T"), self).activated.connect(self.toggle_theme)
+        QShortcut(QKeySequence("Return"), self).activated.connect(self.add_ingredient)
+        QShortcut(QKeySequence("Backspace"), self).activated.connect(self.delete_ingredient)
 
     def setup_table(self):
         self.tableIngredients.setColumnCount(5)
@@ -54,6 +56,8 @@ class MainWindow(QMainWindow):
         self.btnLoadPhoto.clicked.connect(self.load_photo)
         self.spinPeople.valueChanged.connect(self.update_per_serving)
         self.spinPeople.valueChanged.connect(self.save_people)
+        self.btnExport.clicked.connect(self.export_data)
+        self.btnImport.clicked.connect(self.import_data)
 
     def add_ingredient(self):
         ingredient = self.lineIngredient.text().strip()
@@ -208,3 +212,43 @@ class MainWindow(QMainWindow):
         current_theme = self.settings.value("theme", "light")
         new_theme = "dark" if current_theme == "light" else "light"
         self.apply_theme(new_theme)
+
+    def import_data(self):
+        file_path, file_tipe = QFileDialog.getSaveFileName(self, "Экспорт данных", "", "CSV файлы(*.csv);;JSON файлы(*.json)")
+        if not file_path:
+            return
+        try:
+            if file_path.endswith('.csv'):
+                count = self.db.export_to_csv(file_path)
+            elif file_path.endswith('.json'):
+                count = self.db.export_to_json(file_path)
+            else:
+                QtWidgets.QMessageBox.warning(self, "Ошибка", "Неподдерживаемый формат файла")
+                return
+
+            QtWidgets.QMessageBox.information(self, "Успех", f"Экспортировано {count} ингредиентов в {file_path}")
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(self, "Ошибка", f"Ошибка экспорта: {str(e)}")
+
+    def export_data(self):
+        file_path, file_tipe = QFileDialog.getOpenFileName(self, "Импорт данных", "", "CSV файлы(*.csv);;JSON файлы(*.json)")
+        if not file_path:
+            return
+        reply = QtWidgets.QMessageBox.question(self, "Импорт данных", "Очистить текущие ингредиенты?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        if reply == QtWidgets.QMessageBox.Yes:
+            ingredients = self.db.get_ingredients()
+            for ing in ingredients:
+                self.db.delete_ingredient(ing[0])
+            self.tableIngredients.setRowCount(0)
+        try:
+            if file_path.endswith('.csv'):
+                count = self.db.import_from_csv(file_path)
+            elif file_path.endswith('.json'):
+                count = self.db.import_from_json(file_path)
+            else:
+                QtWidgets.QMessageBox.warning(self, "Ошибка", "Неподдерживаемый формат файла")
+                return
+            self.load_ingredients()
+            QtWidgets.QMessageBox.information(self, "Успех", f"Импортировано {count} ингредиентов в {file_path}")
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(self, "Ошибка", f"Ошибка импорта: {str(e)}")
