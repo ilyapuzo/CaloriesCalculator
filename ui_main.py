@@ -1,3 +1,5 @@
+import os.path
+
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QHeaderView, QFileDialog, QShortcut
 from PyQt5.uic import loadUi
@@ -28,6 +30,7 @@ class MainWindow(QMainWindow):
         self.spinPeople.setValue(people)
         self.setup_icons()
         self.setup_shortcuts()
+        self.load_saved_photo()
 
     def setup_shortcuts(self):
         QShortcut(QKeySequence("Ctrl+T"), self).activated.connect(self.toggle_theme)
@@ -163,6 +166,13 @@ class MainWindow(QMainWindow):
         file_name, _ = QFileDialog.getOpenFileName(self, "Выберите фотографию", "", "Images (*.png *.jpg *.jpeg)")
         if file_name:
             pixmap = QPixmap(file_name)
+            self.labelPhoto.setPixmap(pixmap.scaled(self.labelPhoto.width(),self.labelPhoto.height(),Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            self.settings.setValue("photo_path", file_name)
+
+    def load_saved_photo(self):
+        photo_path = self.settings.value("photo_path", "")
+        if photo_path and os.path.exists(photo_path):
+            pixmap = QPixmap(photo_path)
             self.labelPhoto.setPixmap(pixmap.scaled(self.labelPhoto.width(),self.labelPhoto.height(),Qt.KeepAspectRatio, Qt.SmoothTransformation))
 
     def update_per_serving(self):
