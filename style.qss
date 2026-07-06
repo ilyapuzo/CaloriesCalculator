@@ -38,9 +38,9 @@ QPushButton#btnDelete:hover{background: #E53935}
 QPushButton#btnLoadPhoto:hover{background: #4b0082}
 
 QTableWidget::item {padding: 6px}
-QTableWidget::item:selected {background-color: #6031c4; color: black;}
+QTableWidget::item:selected {background-color: #b5b8b1; color: black;}
 QHeaderView::section {background-color: #a38dd3;
-color: black;
+color: white;
 padding: 8px;
 font-weight: bold;
 font-size: 10pt;
